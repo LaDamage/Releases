@@ -85,7 +85,7 @@ end)
 
 --// Miscellaneous
 miscellaneous:TextButton("Redeem", "Redeem All Codes", function()
-    local codes = {"RELEASE", "Wizard", "VOLCANO", "TYFOR100LIKES", "10KVISITS", "250LIKESTY"}
+    local codes = {"RELEASE", "Wizard", "VOLCANO", "TYFOR100LIKES", "10KVISITS", "250LIKESTY", "UPDATE1", "DataFixed"}
 
     for _, v in pairs(codes) do 
         game:GetService("ReplicatedStorage").Server:FireServer("Codes", v)
