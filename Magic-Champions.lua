@@ -53,7 +53,7 @@ end
 local panel = Orion:CreateOrion(Get_Game.Name)
 
 local farming = panel:CreateSection("Farming")
-local miscellaneous = panel:CreateSection("Miscellaneous")
+local event = panel:CreateSection("Event")
 local settings = panel:CreateSection("Settings")
 
 --// Farming
@@ -83,14 +83,9 @@ farming:Dropdown("Select Area", Areas, function(option)
     end
 end)
 
---// Miscellaneous
-miscellaneous:TextButton("Redeem", "Redeem All Codes", function()
-    local codes = {"RELEASE", "Wizard", "VOLCANO", "TYFOR100LIKES", "10KVISITS", "250LIKESTY", "UPDATE1", "DataFixed"}
-
-    for _, v in pairs(codes) do
-        game:GetService("ReplicatedStorage").Server:FireServer("Codes", v)
-        wait(2.5)
-    end
+--// Event
+event:Toggle("Auto Collect Candy Canes", function(state)
+    getgenv().Candy = state
 end)
 
 --// Settings \\--
@@ -140,6 +135,20 @@ spawn(function()
         if getgenv().SA then
             game:GetService("ReplicatedStorage").Server:FireServer("Multiplier", "Speed")
             game:GetService("ReplicatedStorage").Server:FireServer("Multiplier", "Agility")
+        end
+    end
+end)
+
+spawn(function()
+    while task.wait(.2) do
+        if getgenv().Candy then
+            local CandyFolder = game:GetService("Workspace").CandyCanes.Candies
+            local charTouch = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+
+            for _, v in pairs(CandyFolder:GetChildren()) do
+                firetouchinterest(charTouch, v, 0)
+                firetouchinterest(charTouch, v, 1)
+            end
         end
     end
 end)
