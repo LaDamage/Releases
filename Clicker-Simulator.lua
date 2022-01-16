@@ -195,6 +195,9 @@ spawn(function()
         if getgenv().ClaimGifts then
             if game:GetService("Players").LocalPlayer.PlayerGui.randomGiftUI.randomGiftBackground.Visible == true then
                 game:GetService("ReplicatedStorage").Events.Client.collectGifts:FireServer()
+                for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.PlayerGui.randomGiftUI.randomGiftBackground.Background.confirm.MouseButton1Click)) do
+                    v:Fire()
+                end
             end
         end
     end
